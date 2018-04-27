@@ -6,9 +6,11 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 14:55:41 by jjourne           #+#    #+#             */
-/*   Updated: 2018/04/24 15:33:46 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/04/27 01:08:15 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "filler.h"
 
 //near
 	//sur toutes les cases autour des cases enemies
