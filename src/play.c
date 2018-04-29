@@ -23,7 +23,29 @@
 	// 	dna->move.x = 0;
 	// 	dna->move.y = 0;
 	// }
+void 	set_score(t_filler *filler)
+{
+	int x;
+	int y;
 
+	y = 0
+	while (y < filler->map->h)
+	{
+		x = 0;
+		while (x < filler->map->w)
+		{
+			if (== filler->player->en)
+			{
+				filler->map[y * filler->map->w][x] = 2;
+				filler->map[y][x] = 2;
+				filler->map[y][x] = 2;
+				filler->map[y][x] = 2;
+			}
+			++x;
+		}
+		++y;
+	}
+}
 
 //check move
 	//reset_move
@@ -54,3 +76,8 @@
 	//check move
 		// commence double boucle in negative value like 0 - dna->map.w == -5;
 	// test_each_block
+void 	play()
+{
+	near();
+
+}
