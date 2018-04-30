@@ -19,7 +19,7 @@ $(LIBFT):
 
 $(EXEC): $(LIBFT) $(OBJ)
 	#$(CC) $(SRC_DIR)main.c $(SRC) -I$(HEADER_DIR) -L./ -lftprintf -o $@ #$(CFLAGS) #$(DEBUG_FLAGS)
-	$(CC) $(SRC) -I$(HEADER_DIR) libft/libft.a -o $@ #$(CFLAGS) #$(DEBUG_FLAGS)
+	$(CC) $(SRC) -I$(HEADER_DIR) libft/libft.a -o $@ $(CFLAGS) $(DEBUG_FLAGS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)

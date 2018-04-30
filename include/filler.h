@@ -18,6 +18,15 @@ typedef enum				e_bool
 	true
 }							t_bool;
 
+typedef struct				s_move
+{
+	int 					x;
+	int 					y;
+	int						score;
+	int						weld;
+
+}							t_move;
+
 typedef struct				s_cases
 {
 	int						x;
@@ -49,12 +58,14 @@ typedef struct				s_player
 
 typedef struct				s_filler
 {
-	t_player				*player;
-	t_map					*map;
-	t_piece					*piece;
+	t_player				player;
+	t_map					map;
+	t_piece					piece;
+	t_move					move;
 }							t_filler;
 
 void	exit_error(const char *s);
+void	free_split(char **split);
 void	ft_arrdel(void ***arr);
 void	init_game(t_filler *filler, char **line);
 void 	init_map(t_filler *filler);
@@ -64,7 +75,11 @@ void	get_first_line(char **line);
 void 	get_map(t_filler *filler, char **line);
 void 	get_piece(t_filler *filler, char **line);
 void	reset_score(t_filler *filler);
+void	reset_move(t_filler *filler);
 void	piece_length(t_filler *filler, char **line);
 void	add_piece(t_filler *filler, int x, int y, char c);
+int 	check_set_piece(t_filler *filler, int x, int y);
+int 	check_piece(t_filler *filler, int x, int y);
+void 	play(t_filler *filler);
 
 #endif

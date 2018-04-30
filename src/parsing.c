@@ -6,41 +6,31 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:17:07 by jjourne           #+#    #+#             */
-/*   Updated: 2018/04/27 06:28:54 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/04/30 14:12:03 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-//get player
-	// if strstr exec p1
-	// 	dna.player = 1
-	// else
-	// 	dna. player = 2
 void 	get_players(t_filler *filler, char **line)
 {
-	if(ft_strstr("exec p1", *line))
+	if(ft_strstr(*line, "exec p1"))
 	{
-		filler->player->nb = 1;
-		filler->player->my = 'O';
-		filler->player->enemy = 'X';
+		filler->player.nb = 1;
+		filler->player.my = 'O';
+		filler->player.enemy = 'X';
 	}
-	else if(ft_strstr("exec p2", *line))
+	else if(ft_strstr(*line, "exec p2"))
 	{
-		filler->player->nb = 2;
-		filler->player->my = 'X';
-		filler->player->enemy = 'O';
+		filler->player.nb = 2;
+		filler->player.my = 'X';
+		filler->player.enemy = 'O';
 	}
 	else
-		exit(EXIT_FAILURE);
+		exit_error("Error: Player not found\n");
 	ft_memdel((void**)line);
 }
 
-//get map size
-	// strstr Plateau
-	// split string
-	// atoi on 2 et 1
-	// free split
 void 	get_size_map(t_filler *filler, char **line)
 {
 	int ret;
@@ -48,16 +38,16 @@ void 	get_size_map(t_filler *filler, char **line)
 
 	split = NULL;
 	if(((ret = get_next_line(0, line)) == -1) || (*line == NULL))
-		exit(EXIT_FAILURE);
+		exit_error("Error: get_next_line in get_size_map\n");
 	if (!(ft_strstr(*line, "Plateau")))
-		exit(EXIT_FAILURE);
+		exit_error("Error: Plateau not found\n");
 	if (!(split = ft_strsplit(*line, ' ')))
-		exit(EXIT_FAILURE);
+		exit_error("Error: ft_strsplit in get_size_map\n");
 	if (!(split[2]) && !(split[1]))
-		exit(EXIT_FAILURE);
-	filler->map->w = ft_atoi(split[2]);
-	filler->map->h = ft_atoi(split[1]);
-	ft_arrdel((void***)&split);
+		exit_error("Error: slpit[2] or split[1] not exist\n");
+	filler->map.w = ft_atoi(split[2]);
+	filler->map.h = ft_atoi(split[1]);
+	free_split(split);
 }
 
 void	get_first_line(char **line)
@@ -68,15 +58,10 @@ void	get_first_line(char **line)
 	{
 		ft_memdel((void**)line);
 		if(((ret = get_next_line(0, line)) == -1) || (*line == NULL))
-			exit(EXIT_FAILURE);
+			exit_error("Error: get_next_line in get_first_line\n");
 	}
 }
 
-// parse map
-	// 	strstr "000"
-	// 	GNL while y < dna.map->h
-	// 	line + 4 for find first sign of map
-	//	ft_memdel gnl
 void 	get_map(t_filler *filler, char **line)
 {
 	int		x;
@@ -87,11 +72,11 @@ void 	get_map(t_filler *filler, char **line)
 	y = -1;
 	true_map_char = NULL;
 	get_first_line(line);
-	while (++y < filler->map->h)
+	while (++y < filler->map.h)
 	{
 		x = -1;
 		true_map_char = *line + 4;
-		while (++x < filler->map->w)
+		while (++x < filler->map.w)
 		{
 			add_piece(filler, x, y, *true_map_char);
 			true_map_char++;
@@ -102,29 +87,26 @@ void 	get_map(t_filler *filler, char **line)
 	}
 }
 
-//pars piece
-	//length piece if 0 exit
-	//fill piece remplir
 void 	get_piece(t_filler *filler, char **line)
 {
 	char *tmp;
-	int ret;
 	int x;
 	int y;
 
 	y = -1;
 	piece_length(filler, line);
-	while (++y < filler->map->h)
+	while (++y < filler->piece.h)
 	{
-		x = -1;
+		ft_memdel((void **)line);
+		get_next_line(0, line);//sinon on reste sur les dimensions de la piece
+		x = 0;
 		tmp = *line;
-		while (++x < filler->map->w)
+		while (x < filler->piece.w)
 		{
-			filler->piece->tab[x][y] = *tmp;
+			filler->piece.tab[x][y] = *tmp;
+			++x;
 			++tmp;
 		}
-		ft_memdel((void**)line);
-		if(((ret = get_next_line(0, line)) == -1) || (*line == NULL))
-			exit(EXIT_FAILURE);
 	}
+	ft_memdel((void**)line);
 }

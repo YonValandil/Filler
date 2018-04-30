@@ -1,10 +1,5 @@
 #include "filler.h"
 
-//init_game
-	// init dna
- 	// get_player
-	// get size map
-	// get area
 void	init_game(t_filler *filler, char **line)
 {
 	get_players(filler, line);
@@ -12,12 +7,6 @@ void	init_game(t_filler *filler, char **line)
 	init_map(filler);
 }
 
-//create_map
-	// t_case =
-	// 	int score
-	// 	char sign ('O' ou 'X')
-	// malloc double tab de t_case
-	// store map pointer in dna->area
 void 	init_map(t_filler *filler)
 {
 	int x;
@@ -25,19 +14,19 @@ void 	init_map(t_filler *filler)
 
 	x = 0;
 	y = 0;
-	if (!(filler->map->cases = (t_cases**)ft_memalloc(
-		(sizeof(t_cases*) * filler->map->w)
-		* (sizeof(t_cases) * filler->map->h))))
-		exit(EXIT_SUCCESS);
-	while (y < filler->map->h)
+	if (!(filler->map.cases = (t_cases**)ft_memalloc((sizeof(t_cases*) * filler->map.w))))
+		exit(EXIT_FAILURE);
+	while (x < filler->map.w)
 	{
-		x = 0;
-		while (x < filler->map->w)
+		y = 0;
+		if(!(filler->map.cases[x] = (t_cases*)ft_memalloc((sizeof(t_cases) * filler->map.h))))
+			exit(EXIT_FAILURE);
+		while (y < filler->map.h)
 		{
-			(filler->map->cases)[y * filler->map->w][x].val = '.';
-			(filler->map->cases)[y * filler->map->w][x].score = 0;//?
-			++x;
+			(filler->map.cases)[x][y].val = '.';
+			(filler->map.cases)[x][y].score = 0;
+			++y;
 		}
-		++y;
+		++x;
 	}
 }
