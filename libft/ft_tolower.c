@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/07 11:12:08 by lchety            #+#    #+#             */
-/*   Updated: 2016/11/13 20:33:03 by lchety           ###   ########.fr       */
+/*   Created: 2017/01/19 02:44:14 by jjourne           #+#    #+#             */
+/*   Updated: 2017/01/25 17:40:11 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int		ft_tolower(int c)
+int	ft_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
-		return (c + ('a' - 'A'));
+		c += 32;
 	return (c);
 }

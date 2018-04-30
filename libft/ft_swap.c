@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wstrlen.c                                       :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/01 00:31:46 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/30 16:16:58 by lchety           ###   ########.fr       */
+/*   Created: 2017/01/12 09:34:56 by jjourne           #+#    #+#             */
+/*   Updated: 2017/01/19 02:44:09 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_wstrlen(const wchar_t *s)
+void	ft_swap(int *a, int *b)
 {
-	size_t length;
+	int t;
 
-	length = 0;
-	while (*(s + length) != '\0')
-		length++;
-	return (length);
+	t = *a;
+	*a = *b;
+	*b = t;
 }

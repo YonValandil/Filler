@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/08 10:43:42 by lchety            #+#    #+#             */
-/*   Updated: 2017/04/04 14:59:28 by lchety           ###   ########.fr       */
+/*   Created: 2017/01/25 17:37:01 by jjourne           #+#    #+#             */
+/*   Updated: 2017/05/18 01:29:23 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,23 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	size_t	size1;
-	size_t	size2;
+	int		i;
+	int		j;
+	char	*ns;
 
-	size1 = ft_strlen(s1);
-	size2 = ft_strlen(s2);
-	str = ft_strnew(size1 + size2);
-	if (str == NULL)
+	if (!s1 && !s2)
+		return (0);
+	if (!s1 || !s2)
+		return (ft_strdup((!s1) ? s2 : s1));
+	i = -1;
+	j = -1;
+	ns = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
+	if (ns == NULL)
 		return (NULL);
-	ft_memcpy(str, s1, size1);
-	ft_memcpy(str + size1, s2, size2);
-	return (str);
+	while (s1[++i])
+		ns[i] = s1[i];
+	while (s2[++j])
+		ns[i++] = s2[j];
+	ns[i] = '\0';
+	return (ns);
 }

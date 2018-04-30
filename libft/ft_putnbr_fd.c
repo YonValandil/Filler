@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/09 18:35:08 by lchety            #+#    #+#             */
-/*   Updated: 2016/11/30 17:35:47 by lchety           ###   ########.fr       */
+/*   Created: 2017/01/19 02:42:24 by jjourne           #+#    #+#             */
+/*   Updated: 2017/01/19 02:54:16 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,21 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	if (n != -2147483648)
+	int			base;
+	long int	ln;
+
+	ln = n;
+	base = 1;
+	if (ln < 0)
 	{
-		if (n < 0)
-		{
-			ft_putchar_fd('-', fd);
-			n = n * -1;
-		}
-		if (n >= 10)
-			ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd('0' + (n % 10), fd);
+		ft_putchar_fd('-', fd);
+		ln = -ln;
 	}
-	else
-		ft_putstr_fd("-2147483648", fd);
+	while ((ln / base) >= 10)
+		base *= 10;
+	while (base > 0)
+	{
+		ft_putchar_fd(((ln / base) % 10) + '0', fd);
+		base /= 10;
+	}
 }

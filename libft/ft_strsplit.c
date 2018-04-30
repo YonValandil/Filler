@@ -1,67 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/01/25 17:39:29 by jjourne           #+#    #+#             */
+/*   Updated: 2017/01/30 17:40:17 by jjourne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static size_t	count_words(char const *s, char c)
+static int		wordnbr(char const *s, char c)
 {
-	int		i;
-	size_t	n;
+	int i;
+	int nw;
 
 	i = 0;
-	n = 0;
+	nw = 0;
+	if (s[i] != c && s[i])
+		nw++;
 	while (s[i])
 	{
-		if (s[i] == c && s[i + 1] != c && s[i + 1])
-			n++;
-		if (s[i] != c && n == 0)
-			n++;
-		i++;
+		if (s[i + 1] && s[i] == c && s[i + 1] != c)
+			++nw;
+		++i;
 	}
-	return (n);
+	return (nw);
 }
 
-static char		**create_tab(int n)
+static int		wordlen(const char *s, char c)
 {
-	char **tab;
+	int i;
 
-	tab = (char**)malloc(sizeof(char *) * n + 1);
-	if (tab == NULL)
-		return (NULL);
-	tab[n] = NULL;
-	return (tab);
-}
-
-static char		*add_word(char const *s, size_t n)
-{
-	char *str;
-
-	str = ft_strnew(n);
-	ft_memcpy(str, s, n);
-	return (str);
+	i = 0;
+	while (*s != c && *s)
+	{
+		++s;
+		++i;
+	}
+	return (i);
 }
 
 char			**ft_strsplit(char const *s, char c)
 {
-	char	**tab;
+	char	**tabs;
 	int		i;
-	int		nb_w;
+	int		nw;
 
-	nb_w = 0;
-	tab = create_tab(count_words(s, c));
-	if (!tab)
+	if (!(s && c))
+		return (0);
+	i = 0;
+	nw = wordnbr(s, c);
+	if (!(tabs = (char**)ft_memalloc(sizeof(char*) * (nw + 1))))
 		return (NULL);
-	while (*s)
+	while (i < nw)
 	{
-		i = 0;
 		while (*s == c)
-			s++;
-		while (*s != c && *s)
-		{
-			i++;
-			s++;
-		}
-		if (i)
-			tab[nb_w++] = add_word(s - i, i);
-		if (*s)
-			s++;
+			++s;
+		tabs[i] = ft_strsub(s, 0, wordlen(s, c));
+		s = s + wordlen(s, c);
+		++i;
 	}
-	return (tab);
+	return (tabs);
 }

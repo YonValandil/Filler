@@ -1,87 +1,43 @@
-NAME = libft.a
-CC = gcc
-EXEC = debug.exe
-SRC_DIR = srcs/
-SRC_NAME =	ft_atoi.c		\
-			ft_bzero.c		\
-			ft_isalnum.c	\
-			ft_isalpha.c	\
-			ft_isascii.c	\
-			ft_isdigit.c	\
-			ft_isprint.c	\
-			ft_itoa.c		\
-			ft_lstadd.c		\
-			ft_lstdel.c		\
-			ft_lstdelone.c	\
-			ft_lstiter.c	\
-			ft_lstmap.c		\
-			ft_lstnew.c		\
-			ft_memalloc.c	\
-			ft_memccpy.c	\
-			ft_memchr.c		\
-			ft_memcmp.c		\
-			ft_memcpy.c		\
-			ft_memdel.c		\
-			ft_memmove.c	\
-			ft_memset.c		\
-			ft_putchar.c	\
-			ft_putchar_fd.c	\
-			ft_putendl.c	\
-			ft_putendl_fd.c	\
-			ft_putnbr.c		\
-			ft_putnbr_fd.c	\
-			ft_putstr.c		\
-			ft_putwchar.c	\
-			ft_putstr_fd.c	\
-			ft_strcat.c		\
-			ft_strchr.c		\
-			ft_strclr.c		\
-			ft_strcmp.c		\
-			ft_strcpy.c		\
-			ft_strdel.c		\
-			ft_strdup.c		\
-			ft_strequ.c		\
-			ft_striter.c	\
-			ft_striteri.c	\
-			ft_strjoin.c	\
-			ft_strlcat.c	\
-			ft_strlen.c		\
-			ft_strmap.c		\
-			ft_strmapi.c	\
-			ft_strncat.c	\
-			ft_strncmp.c	\
-			ft_strncpy.c	\
-			ft_strnequ.c	\
-			ft_strnew.c		\
-			ft_strnstr.c	\
-			ft_strrchr.c	\
-			ft_strsplit.c	\
-			ft_strstr.c		\
-			ft_strsub.c		\
-			ft_strtrim.c	\
-			ft_tolower.c	\
-			ft_toupper.c	\
-			ft_wstrlen.c	\
-			get_next_line.c
+CC =			gcc
+NAME =			libft.a
+SRC_DIR =		./
+OBJ_DIR =		./obj/
+HEADER =		./include/
+CFLAGS =		-Wall -Werror -Wextra
+DEBUG_FLAGS =	-fsanitize=address -g
+ARFLAGS =		-rcs
+CFILES =		ft_putchar ft_putchar_fd ft_putstr ft_putstr_fd						\
+				ft_putnbr ft_putnbr_fd ft_putendl ft_putendl_fd						\
+				ft_strcpy ft_strncpy ft_strdup										\
+				ft_strlen ft_strcmp ft_strncmp ft_strcat ft_strncat ft_strlcat ft_strtrim ft_strjoin ft_strsub			\
+				ft_bzero ft_memalloc ft_memdel ft_memset ft_memmove ft_memcpy ft_memccpy ft_memcmp ft_memchr ft_strstr ft_strnstr 		\
+				ft_isascii ft_isdigit ft_isalpha ft_isalnum ft_isspace ft_isprint	\
+				ft_toupper ft_tolower ft_atoi ft_itoa ft_ulltoa_base ft_lltoa_base get_next_line \
+				ft_strclr ft_striter ft_striteri ft_strnew ft_strdel ft_strequ ft_strnequ ft_strmap ft_strmapi ft_strchr ft_strrchr ft_strsplit\
+				ft_swap ft_range ft_sqrt ft_pow ft_abs\
+				ft_lstnew ft_lstdelone ft_lstdel ft_lstadd ft_lstiter ft_lstmap
+SRC =			$(CFILES:%=$(SRC_DIR)%.c)
+OBJ =			$(SRC:%.c=$(OBJ_DIR)%.o)
 
-OBJ = $(SRC_NAME:.c=.o)
-SRCS = $(SRC_NAME)
-INC_DIR = includes/
-FLAGS = -Wall -Wextra -Werror
-MAIN_TEST = main_test/
+all: $(NAME)
 
-all : $(NAME)
+$(NAME): $(OBJ)
+	ar $(ARFLAGS) $@ $(OBJ)
+	@echo $@ Done !
 
-$(NAME) :
-	$(CC) -c $(SRCS) -I $(INC_DIR) $(FLAGS)
-	ar rc $(NAME) $(OBJ)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c $< -I$(HEADER) -o $@ $(CFLAGS)
 
-clean :
-	rm -f $(OBJ)
+clean:
+	rm -rf $(OBJ_DIR)
 
-fclean : clean
+fclean:		clean
 	rm -f $(NAME)
 
-re : fclean all
+re:			fclean all
 
-.PHONY: all clean fclean re
+#Regles qui ne concerne pas des noms de fichiers
+.PHONY: clean fclean re
+#Enleve les directives implicites par defauts
+.SUFFIXES:

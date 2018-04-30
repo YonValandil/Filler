@@ -6,21 +6,21 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:17:07 by jjourne           #+#    #+#             */
-/*   Updated: 2018/04/30 14:12:03 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/04/30 16:25:16 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void 	get_players(t_filler *filler, char **line)
+void	get_players(t_filler *filler, char **line)
 {
-	if(ft_strstr(*line, "exec p1"))
+	if (ft_strstr(*line, "exec p1"))
 	{
 		filler->player.nb = 1;
 		filler->player.my = 'O';
 		filler->player.enemy = 'X';
 	}
-	else if(ft_strstr(*line, "exec p2"))
+	else if (ft_strstr(*line, "exec p2"))
 	{
 		filler->player.nb = 2;
 		filler->player.my = 'X';
@@ -31,13 +31,13 @@ void 	get_players(t_filler *filler, char **line)
 	ft_memdel((void**)line);
 }
 
-void 	get_size_map(t_filler *filler, char **line)
+void	get_size_map(t_filler *filler, char **line)
 {
-	int ret;
-	char **split;
+	int		ret;
+	char	**split;
 
 	split = NULL;
-	if(((ret = get_next_line(0, line)) == -1) || (*line == NULL))
+	if (((ret = get_next_line(0, line)) == -1) || (*line == NULL))
 		exit_error("Error: get_next_line in get_size_map\n");
 	if (!(ft_strstr(*line, "Plateau")))
 		exit_error("Error: Plateau not found\n");
@@ -57,16 +57,16 @@ void	get_first_line(char **line)
 	while (!(ft_strstr(*line, "000 ")))
 	{
 		ft_memdel((void**)line);
-		if(((ret = get_next_line(0, line)) == -1) || (*line == NULL))
+		if (((ret = get_next_line(0, line)) == -1) || (*line == NULL))
 			exit_error("Error: get_next_line in get_first_line\n");
 	}
 }
 
-void 	get_map(t_filler *filler, char **line)
+void	get_map(t_filler *filler, char **line)
 {
 	int		x;
 	int		y;
-	int 	ret;
+	int		ret;
 	char	*true_map_char;
 
 	y = -1;
@@ -82,23 +82,23 @@ void 	get_map(t_filler *filler, char **line)
 			true_map_char++;
 		}
 		ft_memdel((void**)line);
-		if(((ret = get_next_line(0, line)) == -1) || (*line == NULL))
+		if (((ret = get_next_line(0, line)) == -1) || (*line == NULL))
 			exit(EXIT_FAILURE);
 	}
 }
 
-void 	get_piece(t_filler *filler, char **line)
+void	get_piece(t_filler *filler, char **line)
 {
-	char *tmp;
-	int x;
-	int y;
+	char	*tmp;
+	int		x;
+	int		y;
 
 	y = -1;
 	piece_length(filler, line);
 	while (++y < filler->piece.h)
 	{
 		ft_memdel((void **)line);
-		get_next_line(0, line);//sinon on reste sur les dimensions de la piece
+		get_next_line(0, line);
 		x = 0;
 		tmp = *line;
 		while (x < filler->piece.w)

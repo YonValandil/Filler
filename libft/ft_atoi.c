@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/12 17:32:33 by lchety            #+#    #+#             */
-/*   Updated: 2016/11/28 12:03:29 by lchety           ###   ########.fr       */
+/*   Created: 2017/01/19 02:40:20 by jjourne           #+#    #+#             */
+/*   Updated: 2017/01/30 19:24:29 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,25 @@
 
 int		ft_atoi(const char *nptr)
 {
-	int		i;
-	int		sign;
-	int		x;
-	int		value;
+	int	i;
+	int	r;
+	int	signe;
 
 	i = 0;
-	sign = 1;
-	x = 1;
-	value = 0;
-	while ((nptr[i] == ' ' || nptr[i] == '\v' || nptr[i] == '\t' ||
-	nptr[i] == '\f' || nptr[i] == '\n' || nptr[i] == '\r'))
-	{
-		nptr++;
-	}
-	if (nptr[i] == '-' && nptr++)
-		sign = -1;
-	else if (nptr[i] == '+')
+	r = 0;
+	signe = 1;
+	while (ft_isspace(nptr[i]))
 		i++;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		value = (value * x) + (nptr[i] - '0');
-		x = 10;
+		if (nptr[i] == '-')
+			signe = -1;
 		i++;
 	}
-	return (value * sign);
+	while (nptr[i] && ft_isdigit(nptr[i]))
+	{
+		r = (r * 10) + (nptr[i] - '0');
+		i++;
+	}
+	return (r * signe);
 }

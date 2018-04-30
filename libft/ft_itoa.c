@@ -3,72 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/08 19:58:41 by lchety            #+#    #+#             */
-/*   Updated: 2017/05/01 17:41:42 by lchety           ###   ########.fr       */
+/*   Created: 2017/01/25 17:30:43 by jjourne           #+#    #+#             */
+/*   Updated: 2017/01/27 17:34:51 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_digit_quantity(unsigned int n)
+static long int		ifneg(long int ln, int *f)
 {
-	int ret;
-
-	ret = 1;
-	while (n >= 10)
+	if (ln < 0)
 	{
-		n = n / 10;
-		ret++;
-	}
-	return (ret);
-}
-
-static char		*create_str(char *str, int neg, unsigned int nb)
-{
-	int digits;
-
-	digits = 0;
-	digits = ft_digit_quantity(nb);
-	str = ft_strnew(digits + neg);
-	return (str);
-}
-
-static char		*recursive_itoa(char *str, unsigned int nb)
-{
-	if (nb >= 10)
-	{
-		str = recursive_itoa(str, nb / 10);
-		str = recursive_itoa(str + 1, nb % 10);
-		return (str);
+		*f = 1;
+		ln = -ln;
 	}
 	else
-	{
-		*str = '0' + nb;
-		return (str);
-	}
+		*f = 0;
+	return (ln);
 }
 
-char			*ft_itoa(int n)
+static char			*sizemallocstr(char *s, long int ln, int f, int base)
 {
-	char			*str;
-	int unsigned	nb;
-	int				negatif;
-
-	str = NULL;
-	nb = n;
-	negatif = 0;
-	if (n < 0)
+	while (ln >= 10)
 	{
-		negatif = 1;
-		nb = (unsigned int)n * -1;
+		ln /= 10;
+		base++;
 	}
-	str = create_str(str, negatif, nb);
-	if (str == NULL)
+	s = ft_strnew(base + f);
+	if (s == NULL)
 		return (NULL);
-	if (negatif)
-		*str = '-';
-	recursive_itoa(str + negatif, nb);
-	return (str);
+	return (s);
+}
+
+static char			*conv(char *s, long int ln, int base, int i)
+{
+	while (base > 0)
+	{
+		s[i] = ((ln / base) % 10) + '0';
+		base /= 10;
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
+}
+
+char				*ft_itoa(int n)
+{
+	char		*s;
+	int			base;
+	int			i;
+	int			f;
+	long int	ln;
+
+	i = 0;
+	ln = n;
+	base = 1;
+	s = NULL;
+	ln = ifneg(ln, &f);
+	s = sizemallocstr(s, ln, f, base);
+	if (s == NULL)
+		return (NULL);
+	if (f == 1)
+	{
+		s[i] = '-';
+		i++;
+	}
+	while ((ln / base) >= 10)
+		base *= 10;
+	s = conv(s, ln, base, i);
+	return (s);
 }

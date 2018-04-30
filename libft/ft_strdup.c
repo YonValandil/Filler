@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/05 22:48:53 by lchety            #+#    #+#             */
-/*   Updated: 2016/11/13 16:38:25 by lchety           ###   ########.fr       */
+/*   Created: 2017/01/12 09:34:37 by jjourne           #+#    #+#             */
+/*   Updated: 2017/01/25 19:28:34 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char const *src)
 {
-	char *ptr;
+	char *d;
 
-	ptr = ft_strnew(ft_strlen(s));
-	if (ptr == NULL)
+	d = ft_strnew(ft_strlen(src));
+	if (d == NULL)
 		return (NULL);
-	ft_memcpy((void *)ptr, (void *)s, ft_strlen(s));
-	return (ptr);
+	d = ft_strcpy(d, src);
+	return (d);
 }

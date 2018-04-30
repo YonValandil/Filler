@@ -6,13 +6,13 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 14:55:41 by jjourne           #+#    #+#             */
-/*   Updated: 2018/04/30 15:40:56 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/04/30 16:26:30 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void 	set_score(t_filler *filler)
+void	set_score(t_filler *filler)
 {
 	int x;
 	int y;
@@ -40,28 +40,7 @@ void 	set_score(t_filler *filler)
 	}
 }
 
-
-void debug_display(t_filler *filler)
-{
-
-	int x = 0;
-	int y = 0;
-
-	while (y < filler->map.h)
-	{
-		x = 0;
-		while (x < filler->map.w)
-		{
-			dprintf(2, "%c", filler->map.cases[x][y].val);
-			++x;
-		}
-			dprintf(2, "\n");
-		y++;
-	}
-
-}
-
-void 	check_move(t_filler *filler)
+void	check_move(t_filler *filler)
 {
 	int x;
 	int y;
@@ -88,7 +67,7 @@ void 	check_move(t_filler *filler)
 	}
 }
 
-int 	check_piece(t_filler *filler, int x, int y)
+int		check_piece(t_filler *filler, int x, int y)
 {
 	if (x < 0 || x >= filler->map.w)
 		return (0);
@@ -101,7 +80,7 @@ int 	check_piece(t_filler *filler, int x, int y)
 	return (1);
 }
 
-int 	check_set_piece(t_filler *filler, int map_x, int map_y)
+int		check_set_piece(t_filler *filler, int map_x, int map_y)
 {
 	int x;
 	int y;
@@ -129,7 +108,7 @@ int 	check_set_piece(t_filler *filler, int map_x, int map_y)
 	return (0);
 }
 
-void 	play(t_filler *filler)
+void	play(t_filler *filler)
 {
 	set_score(filler);
 	check_move(filler);

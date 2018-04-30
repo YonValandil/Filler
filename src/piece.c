@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 14:00:32 by jjourne           #+#    #+#             */
-/*   Updated: 2018/04/30 14:12:39 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/04/30 16:25:39 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	add_piece(t_filler *filler, int x, int y, char c)
 {
 	if (c == filler->player.enemy)
 		filler->map.cases[x][y].val = filler->player.enemy;
-	else if(c == filler->player.my)
+	else if (c == filler->player.my)
 		filler->map.cases[x][y].val = filler->player.my;
 }

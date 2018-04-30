@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/08 00:15:06 by lchety            #+#    #+#             */
-/*   Updated: 2016/11/30 21:02:03 by lchety           ###   ########.fr       */
+/*   Created: 2017/01/25 17:33:06 by jjourne           #+#    #+#             */
+/*   Updated: 2017/01/25 17:43:37 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strequ(char const *s1, char const *s2)
+int	ft_strequ(char const *s1, char const *s2)
 {
-	while (*s1 || *s2)
-	{
-		if (*s1++ != *s2++)
-			return (0);
-	}
-	return (1);
+	if (!s1 || !s2)
+		return (0);
+	if (ft_strcmp(s1, s2) == 0)
+		return (1);
+	return (0);
 }
