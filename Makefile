@@ -1,5 +1,5 @@
 CC =				gcc
-EXEC =				filler.filler
+EXEC =				jjourne.filler
 SRC_DIR =			./src/
 OBJ_DIR =			./obj/
 HEADER_DIR =		./include/
